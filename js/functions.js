@@ -12,6 +12,10 @@ const getBlocks = () => {
                 `<div class="col-12 col-md-6 col-lg-4">
                     <div class="card-container">
                         <div class="card d-flex justify-content-center align-items-center">
+                        <!-- SVG puntina come elemento assoluto -->
+                            <div class="pin-container">
+                                <img src="./img/pin.svg" class="pin">
+                            </div>
                             <img src="${block.thumbnailUrl}" class="square d-flex justify-content-center align-items-center mb-2" />
                             <p>${block.title}</p>
                         </div>
@@ -19,7 +23,6 @@ const getBlocks = () => {
                 </div>`;
             });
 
-            // Debug: Verifica se lo spinner viene nascosto
             console.log("Nascondo lo spinner");
             $spinnerElement.style.display = 'none';
 
