@@ -1,0 +1,65 @@
+*{
+    list-style: none;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    height: 80px;
+    background-image: url('../img/wall.png');
+}
+
+body{
+    background-image: url('../img/cork.png');
+    height: 100vh;
+}
+
+.card{
+    background-size: cover;
+
+}
+
+.square{
+    height: 200px;
+    width: 200px;
+    aspect-ratio: 1 / 1;
+    background-size: cover;
+}
+
+/* Contenitore della card */
+.card {
+    max-width: 220px;
+    padding: 10px 10px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin: 20px auto;
+    text-align: center;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  /* Testo della card */
+  .card .description {
+    font-size: 14px;
+    color: #555;
+    font-style: italic;
+  }
+
+
+  @font-face {
+    font-family: 'Sometype Mono';
+    src: url('./fonts/SometypeMono-Regular.ttf') format('truetype');
+  }
+
+  h1 {
+    font-family: 'Edu TAS Beginner', sans-serif;
+  }
+
+  code, pre {
+    font-family: 'Sometype Mono', monospace;
+  }
+  /* parametri, timeout: 5000 */
