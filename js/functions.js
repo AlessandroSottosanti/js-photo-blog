@@ -82,7 +82,6 @@ const getBlocks = () => {
 
             // Funzione per mostrare l'immagine corrente nel modale
             const showImageInModal = (index) => {
-                console.log("Lunghezza dell'array dentro showImageInModal()", blockArray.length);
                 // Mostra l'immagine solo se l'indice è valido
                 if (index >= 0 && index < blockArray.length) {
                     const imageObj = blockArray[index];
