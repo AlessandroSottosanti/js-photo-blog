@@ -17,7 +17,7 @@ console.log($listElement);
 getBlocks();
 
 
-$closeBtn.addEventListener("click", function() {
+$closeBtn.addEventListener("click", function () {
     $modale.classList.add('d-none');
 });
 
