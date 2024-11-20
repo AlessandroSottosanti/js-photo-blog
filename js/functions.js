@@ -56,16 +56,13 @@ const getBlocks = () => {
 
 
 
-            // carica le immagini nel modale
             const $images = $all('.clickable-img');
 
             // rimuovi le card dall'array una volta cancellate
             const removeCardFromArray = (cardID) => {
-                // Rimuovi la card dall'array usando filter
                 blockArray = blockArray.filter(block => block.id !== parseInt(cardID));
                 console.log(`Card con ID ${cardID} rimossa dall'array.`);
             
-                // Dopo aver rimosso una card, aggiorna la visualizzazione nel modale se necessario
                 updateModalImages();
             };
             
@@ -82,7 +79,7 @@ const getBlocks = () => {
                     });
                 });
             };
-            
+
             // Funzione per mostrare l'immagine corrente nel modale
             const showImageInModal = (index) => {
                 console.log("Lunghezza dell'array dentro showImageInModal()", blockArray.length);
