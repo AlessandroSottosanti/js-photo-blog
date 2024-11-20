@@ -27,8 +27,6 @@ const getBlocks = () => {
 
             });
 
-
-
             console.log("Nascondo lo spinner");
 
             $spinnerElement.classList.add('d-none');
@@ -55,43 +53,42 @@ const getBlocks = () => {
                 });
             });
 
-
-
-
             // carica le immagini nel modale
             const $images = $all('.clickable-img');
 
-            $images.forEach(image => {
-                image.addEventListener("click", function (e) {
+
+            // Funzione per mostrare l'immagine corrente nel modale
+            const showImageInModal = (index) => {
+                const imageObj = blockArray[index];
+                if (imageObj) {
+                    $imgContainer.innerHTML = `<img src="${imageObj.url}" alt="${imageObj.title}" class="img-fluid" />`;
+                    currentIndex = index;
+                }
+            };
 
 
-                    const card = image.closest('.card');
-                    const cardID = parseInt(card.dataset.cardId);
-
-                    const cardImg = () => {
-                        const foundObject = blockArray.find(block => block.id === cardID);
-                        if (foundObject) {
-                            return foundObject;
-                        } else {
-                            console.error(`Errore: nessuna immagine trovata per la card con ID: ${cardID}`);
-                            return null;
-                        }
-                    };
-
-                    const imageObj = cardImg();
-                    if (imageObj) {
-                        console.log('immagine della card:', imageObj.url);
-
-                        $modale.classList.remove('d-none');
-                        $modale.classList.add('d-flex');
-
-                        $imgContainer.innerHTML = `<img src="${imageObj.url}" alt="${imageObj.title}" class="img-fluid" />`;
-                    }
+            // Evento per ogni immagine cliccabile
+            $images.forEach((image, index) => {
+                image.addEventListener("click", () => {
+                    $modale.classList.remove('d-none');
+                    $modale.classList.add('d-flex');
+                    showImageInModal(index);
                 });
             });
 
+            // Gestione delle frecce
+            const $prevBtn = $one('.btn-prev');
+            const $nextBtn = $one('.btn-next');
 
+            $prevBtn.addEventListener("click", () => {
+                const prevIndex = (currentIndex - 1 + blockArray.length) % blockArray.length;
+                showImageInModal(prevIndex);
+            });
 
+            $nextBtn.addEventListener("click", () => {
+                const nextIndex = (currentIndex + 1) % blockArray.length;
+                showImageInModal(nextIndex);
+            });
 
         }, 5000);
     }).catch((error) => {
