@@ -18,5 +18,10 @@ $closeBtn.addEventListener("click", function () {
 });
 
 
-
+$modale.addEventListener("click", function (e) {
+    if (!e.target.closest('.contenitore')) {
+        $modale.classList.add('d-none'); 
+        $modale.classList.remove('d-flex');
+    }
+});
 
