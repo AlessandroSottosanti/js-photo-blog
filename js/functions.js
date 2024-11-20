@@ -35,32 +35,60 @@ const getBlocks = () => {
             // rimuovi le card 
             const $cards = $all('.all-card');
 
-            $cards.forEach(card => {
+            for (let i = 0; i < $cards.length; i++) {
+                const card = $cards[i];
                 const deleteBtn = card.querySelector('.delete-btn');
 
                 deleteBtn.addEventListener("click", function () {
                     const cardID = card.dataset.cardId;
                     console.log(`Eliminazione della card con ID: ${cardID}`);
 
-
                     const targetCard = $one(`.all-card[data-card-id="${cardID}"]`);
                     if (targetCard) {
                         targetCard.innerHTML = '';
                         console.log(`Card con ID ${cardID} eliminata.`);
+                        removeCardFromArray(cardID, i);  // Rimuovi la card dall'array
                     } else {
                         console.error(`Errore: Card con ID ${cardID} non trovata.`);
                     }
                 });
-            });
+            }
+
+
 
             // carica le immagini nel modale
             const $images = $all('.clickable-img');
 
-
+            // rimuovi le card dall'array una volta cancellate
+            const removeCardFromArray = (cardID) => {
+                // Rimuovi la card dall'array usando filter
+                blockArray = blockArray.filter(block => block.id !== parseInt(cardID));
+                console.log(`Card con ID ${cardID} rimossa dall'array.`);
+            
+                // Dopo aver rimosso una card, aggiorna la visualizzazione nel modale se necessario
+                updateModalImages();
+            };
+            
+            // Funzione per aggiornare il modale con le immagini rimanenti
+            const updateModalImages = () => {
+                const $images = $all('.clickable-img');
+            
+                // Aggiungi un nuovo listener per ogni immagine, aggiornando l'array
+                $images.forEach((image, index) => {
+                    image.addEventListener("click", () => {
+                        $modale.classList.remove('d-none');
+                        $modale.classList.add('d-flex');
+                        showImageInModal(index); // Passa l'indice aggiornato
+                    });
+                });
+            };
+            
             // Funzione per mostrare l'immagine corrente nel modale
             const showImageInModal = (index) => {
-                const imageObj = blockArray[index];
-                if (imageObj) {
+                console.log("Lunghezza dell'array dentro showImageInModal()", blockArray.length);
+                // Mostra l'immagine solo se l'indice è valido
+                if (index >= 0 && index < blockArray.length) {
+                    const imageObj = blockArray[index];
                     $imgContainer.innerHTML = `<img src="${imageObj.url}" alt="${imageObj.title}" class="img-fluid" />`;
                     currentIndex = index;
                 }

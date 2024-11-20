@@ -13,6 +13,8 @@ const $imgContainer = $one('.img-container');
 getBlocks();
 
 
+// Chiusura modale
+
 $closeBtn.addEventListener("click", function () {
     $modale.classList.add('d-none');
 });
