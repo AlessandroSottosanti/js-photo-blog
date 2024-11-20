@@ -46,7 +46,7 @@ const getBlocks = () => {
                             return foundObject;
                         }
                         else {
-                            alert(`Errore: nessuna immagine trovata per la card con ID: ${cardID}`);
+                            console.error(`Errore: nessuna immagine trovata per la card con ID: ${cardID}`, error.message);
                             return null;
                         }
                     };
