@@ -24,18 +24,29 @@
   <script defer src="./js/script.js"></script>
 </head>
 
-<body>
+<!-- modale -->
+<div class="modale d-none justify-content-center">
+  <div class="contenitore d-flex justify-content-center align-items-center my-auto">
+    <button class="btn btn-danger d-flex  align-self-start" id="close-modal">X</button>
+    <div class="mx-auto text-white img-container" ></div>
+  </div>
+</div>
 
+<body>
+  <!-- header -->
   <header class="d-flex justify-content-center align-items-center">
       <div class="container d-flex justify-content-center">
         <span class="title">ESTATE '24</span>
       </div>
   </header>
+
+  <!-- spinner caricamento -->
   <div class="container d-flex justify-content-center body-container my-5">
     <div class="spinner-border text-white" id="spinner" role="status">
       <span class="visually-hidden" >Loading...</span>
     </div>
 
+    <!-- Lista elementi -->
     <div class="row" id="list-element">
 
       

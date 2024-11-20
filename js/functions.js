@@ -11,7 +11,7 @@ const getBlocks = () => {
                 $listElement.innerHTML += 
                 `<div class="col-12 col-md-6 col-lg-4">
                     <div class="card-container">
-                        <div class="card d-flex justify-content-center align-items-center">
+                        <div class="card d-flex justify-content-center align-items-center" data-card-id="${block.id}">
                         <!-- SVG puntina come elemento assoluto -->
                             <div class="pin-container">
                                 <img src="./img/pin.svg" class="pin">
@@ -21,10 +21,42 @@ const getBlocks = () => {
                         </div>
                     </div>
                 </div>`;
+                
+
             });
 
+            
+            
             console.log("Nascondo lo spinner");
-            $spinnerElement.style.display = 'none';
+            
+            $spinnerElement.classList.add('d-none');
+
+            const $cards = $all('.card');
+
+            console.log($cards);
+            
+            $cards.forEach(card => {
+                card.addEventListener("click", function() {
+
+                    const cardID = parseInt(card.dataset.cardId);
+                    console.log(cardID);
+
+                    const cardImg = () => {
+                        const foundObject = blockArray.find((block) => block.id === cardID);
+                        console.log(foundObject);
+                        return foundObject;
+                    };
+
+                    console.log('immagine della card:', cardImg().url);
+
+                    $modale.classList.remove('d-none');
+                    $modale.classList.add('d-flex'); 
+
+                    $imgContainer.innerHTML = `<img src="${cardImg().url}" alt="${cardImg().title}" class="img-fluid" />` ;                
+                });
+            });
+
+            
 
         }, 5000);
     }).catch((error) => {
@@ -36,6 +68,8 @@ const getBlocks = () => {
         }
 
         $spinnerElement.style.display = 'none';
-
+        
     });
+
+    
 };
