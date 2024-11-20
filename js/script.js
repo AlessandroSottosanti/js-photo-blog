@@ -8,11 +8,7 @@ const $spinnerElement = $one('#spinner');
 const $closeBtn = $one('#close-modal');
 const $modale = $one('.modale');
 const $imgContainer = $one('.img-container');
-console.log($imgContainer);
 
-console.log($modale);
-
-console.log($listElement);
 
 getBlocks();
 
@@ -20,6 +16,7 @@ getBlocks();
 $closeBtn.addEventListener("click", function () {
     $modale.classList.add('d-none');
 });
+
 
 
 

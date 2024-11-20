@@ -8,19 +8,21 @@ const getBlocks = () => {
         // Timeout prima di eseguire il foreach in modo da caricare le immagini
         setTimeout(() => {
             blockArray.forEach(block => {
-                $listElement.innerHTML +=
-                    `<div class="col-12 col-md-6 col-lg-4">
-                    <div class="card-container">
-                        <div class="card d-flex justify-content-center align-items-center" data-card-id="${block.id}">
-                        <!-- SVG puntina come elemento assoluto -->
-                            <div class="pin-container">
-                                <img src="./img/pin.svg" class="pin">
+                let card =
+                    `<div class="col-12 col-md-6 col-lg-4 all-card" data-card-id="${block.id}">
+                        <div class="card-container">
+                            <div class="card d-flex justify-content-center align-items-center" data-card-id="${block.id}">
+                                <!-- SVG puntina come elemento assoluto -->
+                                <div class="pin-container">
+                                    <img src="./img/pin.svg" class="pin">
+                                </div>
+                                <button class="delete-btn btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                                <img src="${block.thumbnailUrl}" class="square d-flex justify-content-center align-items-center mb-2 clickable-img" />
+                                <p>${block.title}</p>
                             </div>
-                            <img src="${block.thumbnailUrl}" class="square d-flex justify-content-center align-items-center mb-2" />
-                            <p>${block.title}</p>
                         </div>
-                    </div>
-                </div>`;
+                    </div>`;
+                $listElement.innerHTML += card;
 
 
             });
@@ -31,34 +33,63 @@ const getBlocks = () => {
 
             $spinnerElement.classList.add('d-none');
 
-            const $cards = $all('.card');
 
+            // rimuovi le card 
+            const $cards = $all('.all-card');
 
             $cards.forEach(card => {
-                card.addEventListener("click", function () {
+                const deleteBtn = card.querySelector('.delete-btn');
 
+                deleteBtn.addEventListener("click", function () {
+                    const cardID = card.dataset.cardId;
+                    console.log(`Eliminazione della card con ID: ${cardID}`);
+
+
+                    const targetCard = $one(`.all-card[data-card-id="${cardID}"]`);
+                    if (targetCard) {
+                        targetCard.innerHTML = '';
+                        console.log(`Card con ID ${cardID} eliminata.`);
+                    } else {
+                        console.error(`Errore: Card con ID ${cardID} non trovata.`);
+                    }
+                });
+            });
+
+
+
+
+            // carica le immagini nel modale
+            const $images = $all('.clickable-img');
+
+            $images.forEach(image => {
+                image.addEventListener("click", function (e) {
+
+
+                    const card = image.closest('.card');
                     const cardID = parseInt(card.dataset.cardId);
-                    console.log(cardID);
 
                     const cardImg = () => {
-                        const foundObject = blockArray.find((block) => block.id === cardID);
+                        const foundObject = blockArray.find(block => block.id === cardID);
                         if (foundObject) {
                             return foundObject;
-                        }
-                        else {
-                            console.error(`Errore: nessuna immagine trovata per la card con ID: ${cardID}`, error.message);
+                        } else {
+                            console.error(`Errore: nessuna immagine trovata per la card con ID: ${cardID}`);
                             return null;
                         }
                     };
 
-                    console.log('immagine della card:', cardImg().url);
+                    const imageObj = cardImg();
+                    if (imageObj) {
+                        console.log('immagine della card:', imageObj.url);
 
-                    $modale.classList.remove('d-none');
-                    $modale.classList.add('d-flex');
+                        $modale.classList.remove('d-none');
+                        $modale.classList.add('d-flex');
 
-                    $imgContainer.innerHTML = `<img src="${cardImg().url}" alt="${cardImg().title}" class="img-fluid" />`;
+                        $imgContainer.innerHTML = `<img src="${imageObj.url}" alt="${imageObj.title}" class="img-fluid" />`;
+                    }
                 });
             });
+
 
 
 
